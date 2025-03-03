@@ -1,76 +1,66 @@
-# Contributing to [project-title]
+# 贡献指南 [project-title]
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+该项目欢迎贡献和建议。大多数贡献需要您同意一份贡献者许可协议 (CLA)，声明您有权利并确实授予我们使用您贡献的权利。详情请访问：https://cla.opensource.microsoft.com。
 
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
+当您提交拉取请求时，CLA 机器人会自动判断您是否需要提供 CLA，并适当地装饰 PR（例如，状态检查、评论）。只需按照机器人提供的指示操作即可。您只需要在使用我们 CLA 的所有仓库中完成一次此操作。
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+本项目采用了[微软开源行为准则](https://opensource.microsoft.com/codeofconduct/)。  
+欲了解更多信息，请参阅[行为准则常见问题解答](https://opensource.microsoft.com/codeofconduct/faq/)，  
+或者通过[opencode@microsoft.com](mailto:opencode@microsoft.com)联系，以提出其他问题或意见。
 
- - [Code of Conduct](#coc)
- - [Issues and Bugs](#issue)
- - [Feature Requests](#feature)
- - [Submission Guidelines](#submit)
+ - [行为准则](#coc)  
+ - [问题与错误](#issue)  
+ - [功能请求](#feature)  
+ - [提交指南](#submit)  
 
-## <a name="coc"></a> Code of Conduct
-Help us keep this project open and inclusive. Please read and follow our [Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
+## <a name="coc"></a> 行为准则
+请帮助我们保持该项目的开放性和包容性。请阅读并遵守我们的[行为准则](https://opensource.microsoft.com/codeofconduct/)。
 
-## <a name="issue"></a> Found an Issue?
-If you find a bug in the source code or a mistake in the documentation, you can help us by
-[submitting an issue](#submit-issue) to the GitHub Repository. Even better, you can
-[submit a Pull Request](#submit-pr) with a fix.
+## <a name="issue"></a> 发现问题？
+如果您在源代码中发现了漏洞或在文档中发现了错误，您可以通过向 GitHub 仓库[提交问题](#submit-issue)来帮助我们。更棒的是，您还可以通过[提交拉取请求](#submit-pr)提供修复。
 
-## <a name="feature"></a> Want a Feature?
-You can *request* a new feature by [submitting an issue](#submit-issue) to the GitHub
-Repository. If you would like to *implement* a new feature, please submit an issue with
-a proposal for your work first, to be sure that we can use it.
+## <a name="feature"></a> 想要一个新功能？
 
-* **Small Features** can be crafted and directly [submitted as a Pull Request](#submit-pr).
+您可以通过[提交问题](#submit-issue)到 GitHub 仓库来*请求*一个新功能。如果您想要*实现*一个新功能，请先提交一个包含您提案的问题，以确保我们能够使用它。
 
-## <a name="submit"></a> Submission Guidelines
+* **小型功能**可以被制作并直接[提交为拉取请求](#submit-pr)。
 
-### <a name="submit-issue"></a> Submitting an Issue
-Before you submit an issue, search the archive, maybe your question was already answered.
+## <a name="submit"></a> 提交指南
 
-If your issue appears to be a bug, and hasn't been reported, open a new issue.
-Help us to maximize the effort we can spend fixing issues and adding new
-features, by not reporting duplicate issues.  Providing the following information will increase the
-chances of your issue being dealt with quickly:
+### <a name="submit-issue"></a> 提交问题
+在提交问题之前，请先搜索存档，可能您的问题已经得到解答。
 
-* **Overview of the Issue** - if an error is being thrown a non-minified stack trace helps
-* **Version** - what version is affected (e.g. 0.1.2)
-* **Motivation for or Use Case** - explain what are you trying to do and why the current behavior is a bug for you
-* **Browsers and Operating System** - is this a problem with all browsers?
-* **Reproduce the Error** - provide a live example or a unambiguous set of steps
-* **Related Issues** - has a similar issue been reported before?
-* **Suggest a Fix** - if you can't fix the bug yourself, perhaps you can point to what might be
-  causing the problem (line of code or commit)
+如果您的问题似乎是一个尚未报告的漏洞，请提交一个新的问题。  
+通过避免报告重复的问题，帮助我们将更多精力用于修复问题和添加新功能。  
+提供以下信息将增加您的问题被快速处理的可能性：
 
-You can file new issues by providing the above information at the corresponding repository's issues link: https://github.com/[organization-name]/[repository-name]/issues/new].
+* **问题概述** - 如果抛出了错误，非压缩的堆栈追踪会更有帮助  
+* **版本** - 哪个版本受影响（例如 0.1.2）  
+* **动机或使用场景** - 解释你试图实现什么，以及为什么当前的行为对你来说是一个错误  
+* **浏览器和操作系统** - 这个问题是否存在于所有浏览器中？  
+* **重现错误** - 提供一个实际的示例或一组明确的步骤  
+* **相关问题** - 是否之前已经报告过类似的问题？  
+* **提出修复建议** - 如果你无法自己修复该错误，也许你可以指出可能导致问题的原因（代码行或提交记录）  
 
-### <a name="submit-pr"></a> Submitting a Pull Request (PR)
-Before you submit your Pull Request (PR) consider the following guidelines:
+您可以通过在对应仓库的 issues 链接中提供上述信息来提交新问题：https://github.com/[organization-name]/[repository-name]/issues/new。
 
-* Search the repository (https://github.com/[organization-name]/[repository-name]/pulls) for an open or closed PR
-  that relates to your submission. You don't want to duplicate effort.
+### <a name="submit-pr"></a> 提交拉取请求（PR）
+在提交拉取请求（PR）之前，请考虑以下指南：
 
-* Make your changes in a new git fork:
+* 在仓库中搜索 (https://github.com/[organization-name]/[repository-name]/pulls) 是否存在与您的提交相关的已开启或已关闭的拉取请求。您不希望重复工作。
 
-* Commit your changes using a descriptive commit message
-* Push your fork to GitHub:
-* In GitHub, create a pull request
-* If we suggest changes then:
-  * Make the required updates.
-  * Rebase your fork and force push to your GitHub repository (this will update your Pull Request):
+* 在一个新的 Git 分叉中进行更改：
+
+* 使用描述性提交信息提交更改  
+* 将你的分支推送到 GitHub：  
+* 在 GitHub 上创建一个拉取请求（Pull Request）  
+* 如果我们提出修改建议，则：  
+  * 进行必要的更新。  
+  * 对你的分支进行变基操作并强制推送到你的 GitHub 仓库（这将更新你的拉取请求）：  
 
     ```shell
     git rebase master -i
     git push -f
     ```
 
-That's it! Thank you for your contribution!
+就是这样！感谢您的贡献！
