@@ -13,341 +13,344 @@ products:
 - azure-bing-web
 - azure-cognitive-search
 urlFragment: contoso-creative-writer
-name: Creative Writing Assistant - Working with Agents using Prompty (Python Implementation)
-description: Using Azure OpenAI agent with Python, integrating Bing Search API and Azure AI Search, to create articles based on user topics and instruction.
+name: 创意写作助手 - 使用 Prompty 与智能代理协作（Python 实现）
+description: 使用 Azure OpenAI 智能代理与 Python 集成 Bing 搜索 API 和 Azure AI 搜索，根据用户主题和指令创建文章。
 ---
-<!-- YAML front-matter schema: https://review.learn.microsoft.com/en-us/help/contribute/samples/process/onboarding?branch=main#supported-metadata-fields-for-readmemd -->
+<!-- YAML 前置信息架构: https://review.learn.microsoft.com/en-us/help/contribute/samples/process/onboarding?branch=main#supported-metadata-fields-for-readmemd -->
 
-# Creative Writing Assistant: Working with Agents using Prompty (Python Implementation) 
+# 创意写作助手：使用Prompty与代理协作（Python实现）
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/contoso-creative-writer) [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/azure-samples/contoso-creative-writer) 
+[![在 GitHub Codespaces 中打开](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/contoso-creative-writer) [![在 Dev Containers 中打开](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/azure-samples/contoso-creative-writer)
 
-## Table of Contents
+## 目录
 
-- [Features](#features)
-- [Azure account requirements](#azure-account-requirements)
-- [Getting Started](#getting-started)
+- [功能](#features)
+- [Azure 账户要求](#azure-account-requirements)
+- [快速开始](#getting-started)
     - [GitHub Codespaces](#github-codespaces)
-    - [VS Code Dev Containers](#vs-code-dev-containers)
-    - [Local environment](#local-environment)
-      - [Prerequisites](#prerequisites)
-      - [Initializing the project](#initializing-the-project)
-- [Deployment](#deployment)
-- [Testing the sample](#testing-the-sample)
-    - [Evaluating results](#evaluating-results)
-- [Guidance](#guidance)
-    - [Region Availability](#region-availability)
-    - [Costs](#costs)
-    - [Security Guidelines](#security)
-- [Resources](#resources)
-- [Code of Conduct](#code-of-conduct)
+    - [VS Code 开发容器](#vs-code-dev-containers)
+    - [本地环境](#local-environment)
+      - [先决条件](#prerequisites)
+      - [初始化项目](#initializing-the-project)
+- [部署](#deployment)
+- [测试示例](#testing-the-sample)
+    - [评估结果](#evaluating-results)
+- [指导](#guidance)
+    - [区域可用性](#region-availability)
+    - [成本](#costs)
+    - [安全指南](#security)
+- [资源](#resources)
+- [行为准则](#code-of-conduct)
 
+![应用预览](images/app_preview.png)
 
-![App preview](images/app_preview.png)
+![代理工作流程预览](images/agent.png)
 
-![Agent workflow preview](images/agent.png)
+Contoso Creative Writer 是一款可以帮助您撰写经过深入研究、针对特定产品的文章的应用程序。输入所需信息，然后点击“开始工作”。要查看代理工作流程中的步骤，请选择屏幕右下角的调试按钮。在代理完成撰写文章的任务后，结果将开始生成。
 
-Contoso Creative Writer is an app that will help you write well researched, product specific articles. Enter the required information and then click "Start Work". To watch the steps in the agent workflow select the debug button in the bottom right corner of the screen. The result will begin writing once the agents complete the tasks to write the article.
+该示例演示了如何使用 [Azure OpenAI](https://learn.microsoft.com/zh-cn/azure/ai-services/openai/) 来创建和操作AI代理。它包括一个 FastAPI 应用程序，该应用程序从用户获取主题和指令，然后调用一个使用 [Bing 搜索 API](https://www.microsoft.com/zh-cn/bing/apis/bing-web-search-api) 的研究代理来研究该主题；一个产品代理，使用 [Azure AI Search](https://azure.microsoft.com/zh-cn/products/ai-services/ai-search) 对向量存储中的相关产品进行语义相似性搜索；一个写作代理，将研究和产品信息整合成一篇有用的文章；最后一个编辑代理对文章进行优化，并将最终版本呈现给用户。
 
-This sample demonstrates how to create and work with AI agents driven by [Azure OpenAI](https://learn.microsoft.com/en-us/azure/ai-services/openai/). It includes a FastAPI app that takes a topic and instruction from a user and then calls a research agent that uses the [Bing Search API](https://www.microsoft.com/en-us/bing/apis/bing-web-search-api) to research the topic, a product agent that uses [Azure AI Search](https://azure.microsoft.com/en-gb/products/ai-services/ai-search) to do a semantic similarity search for related products from a vector store, a writer agent to combine the research and product information into a helpful article, and an editor agent to refine the article that's finally presented to the user.
+## 功能
 
-## Features
+此项目模板提供以下功能：
 
-This project template provides the following features:
+* [Azure OpenAI](https://learn.microsoft.com/en-us/azure/ai-services/openai/) 用于驱动各种代理  
+* [Prompty](https://prompty.ai/) 用于创建、管理和评估我们代码中的提示  
+* [Bing Search API](https://www.microsoft.com/en-us/bing/apis/bing-web-search-api) 用于研究所提供的主题  
+* [Azure AI Search](https://azure.microsoft.com/en-gb/products/ai-services/ai-search) 用于执行语义相似性搜索  
 
-* [Azure OpenAI](https://learn.microsoft.com/en-us/azure/ai-services/openai/) to drive the various agents
-* [Prompty](https://prompty.ai/) to create, manage and evaluate the prompt into our code.
-* [Bing Search API](https://www.microsoft.com/en-us/bing/apis/bing-web-search-api) to research the topic provided
-* [Azure AI Search](https://azure.microsoft.com/en-gb/products/ai-services/ai-search) for performing semantic similarity search
-  
-![Architecture Digram](images/Creative_writing_aca.png)
+![架构图](images/Creative_writing_aca.png)
 
-## Azure account requirements
+## Azure 账户要求
 
-**IMPORTANT:** In order to deploy and run this example, you'll need:
+**重要提示：** 要部署并运行此示例，您需要：
 
-* **Azure account**. If you're new to Azure, [get an Azure account for free](https://azure.microsoft.com/free/cognitive-search/) and you'll get some free Azure credits to get started. See [guide to deploying with the free trial](docs/deploy_lowcost.md).
-* **Azure subscription with access enabled for the Azure OpenAI Service**. If your access request to Azure OpenAI Service doesn't match the [acceptance criteria](https://learn.microsoft.com/legal/cognitive-services/openai/limited-access?context=%2Fazure%2Fcognitive-services%2Fopenai%2Fcontext%2Fcontext), you can use [OpenAI public API](https://platform.openai.com/docs/api-reference/introduction) instead.
-    - Ability to deploy `gpt-4o` and `gpt-4o-mini`.
-    - We recommend using `eastus2`, as this region has access to all models and services required. 
-* **Azure subscription with access enabled for [Bing Search API](https://www.microsoft.com/en-us/bing/apis/bing-web-search-api)**
-* **Azure subscription with access enabled for [Azure AI Search](https://azure.microsoft.com/en-gb/products/ai-services/ai-search)**
+* **Azure 账户**。如果您是 Azure 新手，请[免费获取一个 Azure 账户](https://azure.microsoft.com/free/cognitive-search/)，您将获得一些免费的 Azure 额度以开始使用。请参阅[使用免费试用版部署的指南](docs/deploy_lowcost.md)。
 
-## Getting Started
+* **拥有已启用 Azure OpenAI 服务访问权限的 Azure 订阅**。如果您对 Azure OpenAI 服务的访问请求不符合[接受标准](https://learn.microsoft.com/legal/cognitive-services/openai/limited-access?context=%2Fazure%2Fcognitive-services%2Fopenai%2Fcontext%2Fcontext)，您可以改用 [OpenAI 公共 API](https://platform.openai.com/docs/api-reference/introduction)。
+    - 能够部署 `gpt-4o` 和 `gpt-4o-mini`。
+    - 我们推荐使用 `eastus2` 区域，因为此区域可以访问所需的所有模型和服务。
 
-You have a few options for setting up this project.
-The easiest way to get started is GitHub Codespaces, since it will setup all the tools for you, but you can also [set it up locally](#local-environment).
+* **拥有已启用 [Bing 搜索 API](https://www.microsoft.com/en-us/bing/apis/bing-web-search-api) 访问权限的 Azure 订阅**。
+
+* **拥有已启用 [Azure AI 搜索](https://azure.microsoft.com/en-gb/products/ai-services/ai-search) 访问权限的 Azure 订阅**。
+
+## 入门指南
+
+您有几种设置此项目的选项。  
+最简单的开始方式是使用 GitHub Codespaces，因为它会为您设置好所有工具，但您也可以[在本地进行设置](#local-environment)。
 
 ### GitHub Codespaces
 
-1. You can run this template virtually by using GitHub Codespaces. The button will open a web-based VS Code instance in your browser:
-   
-    [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/agent-openai-python-prompty)
+### GitHub 代码空间
 
-2. Open a terminal window.
-3. Sign in to your Azure account. You'll need to login to both the Azure Developer CLI and Azure CLI:
+1. 您可以通过使用 GitHub Codespaces 虚拟运行此模板。点击按钮将在您的浏览器中打开一个基于网页的 VS Code 实例：
 
-    i. First with Azure Developer CLI 
+    [![在 GitHub Codespaces 中打开](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/agent-openai-python-prompty)
+
+2. 打开一个终端窗口。  
+3. 登录到你的 Azure 帐户。你需要同时登录 Azure Developer CLI 和 Azure CLI：  
+
+    i. 首先使用 Azure Developer CLI
 
     ```shell
     azd auth login
     ```
 
-    ii. Then sign in with Azure CLI 
-    
+    ii. 然后使用 Azure CLI 登录
+
     ```shell
     az login --use-device-code
     ```
 
-4. Provision the resources and deploy the code:
+4. 提供资源并部署代码：
 
     ```shell
     azd up
     ```
 
-    You will be prompted to select some details about your deployed resources, including location. As a reminder we recommend `East US 2` as the region for this project.
-    Once the deployment is complete you should be able to scroll up in your terminal and see the url that the app has been deployed to. It should look similar to this 
-    `Ingress Updated. Access your app at https://env-name.codespacesname.eastus2.azurecontainerapps.io/`. Navigate to the link to try out the app straight away! 
+```markdown
+您将被提示选择有关已部署资源的一些详细信息，包括位置。提醒一下，我们建议将 `East US 2` 作为此项目的区域。  
+一旦部署完成，您应该能够在终端中向上滚动，看到应用程序已部署的 URL。它看起来应类似于  
+`Ingress Updated. Access your app at https://env-name.codespacesname.eastus2.azurecontainerapps.io/`。访问该链接即可立即尝试该应用程序！
+```
 
-5. Once the above steps are completed you can [test the sample](#testing-the-sample). 
+5. 一旦完成上述步骤，您可以[测试示例](#testing-the-sample)。
 
-### VS Code Dev Containers
+### VS Code 开发容器
 
-A related option is VS Code Dev Containers, which will open the project in your local VS Code using the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers):
+一个相关的选项是 VS Code 开发容器，它将使用 [开发容器扩展](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) 在本地 VS Code 中打开项目：
 
-1. Start Docker Desktop (install it if not already installed)
-2. Open the project:
-   
-    [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/agent-openai-python-prompty.git)
+1. 启动 Docker Desktop（如果尚未安装，请先安装）  
+2. 打开项目：  
 
-3. In the VS Code window that opens, once the project files show up (this may take several minutes), open a terminal window.
+    [![在开发容器中打开](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/agent-openai-python-prompty.git)
 
-4. Install required packages:
+3. 在打开的 VS Code 窗口中，当项目文件显示出来后（可能需要几分钟时间），打开终端窗口。
+
+4. 安装所需的包：
 
     ```shell
     cd src/api
     pip install -r requirements.txt
     ```
-   Once you've completed these steps jump to [deployment](#deployment). 
+   完成这些步骤后，跳转到[部署](#deployment)。
 
-### Local environment
+### 本地环境
 
-#### Prerequisites
+#### 前提条件
 
-* [Azure Developer CLI (azd)](https://aka.ms/install-azd)
-* [Python 3.10+](https://www.python.org/downloads/)
-* [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-* [Git](https://git-scm.com/downloads)
+* [Azure 开发者 CLI (azd)](https://aka.ms/install-azd)  
+* [Python 3.10+](https://www.python.org/downloads/)  
+* [Docker 桌面版](https://www.docker.com/products/docker-desktop/)  
+* [Git](https://git-scm.com/downloads)  
 
-**Note for Windows users:** If you are not using a container to run this sample, our hooks are currently all shell scripts. To provision this sample correctly while we work on updates we recommend using [git bash](https://gitforwindows.org/). 
+**针对 Windows 用户的注意事项：** 如果您未使用容器运行此示例，目前我们的钩子全部是 shell 脚本。在我们进行更新期间，为了正确配置此示例，我们建议您使用 [git bash](https://gitforwindows.org/)。
 
-#### Initializing the project
+#### 初始化项目
 
-1. Create a new folder and switch to it in the terminal, then run this command to download the project code:
+1. 创建一个新文件夹，并在终端中切换到该文件夹，然后运行以下命令来下载项目代码：
 
     ```shell
     azd init -t agent-openai-python-prompty
     ```
-    Note that this command will initialize a git repository, so you do not need to clone this repository.
+    请注意，此命令会初始化一个 git 仓库，因此您不需要克隆该仓库。
 
-2. Install required packages:
+2. 安装所需的软件包：
 
     ```shell
     cd src/api
     pip install -r requirements.txt
     ```
 
-## Deployment
+## 部署
 
-Once you've opened the project in [Codespaces](#github-codespaces), [Dev Containers](#vs-code-dev-containers), or [locally](#local-environment), you can deploy it to Azure.
+一旦您在 [Codespaces](#github-codespaces)、[Dev Containers](#vs-code-dev-containers) 或 [本地环境](#local-environment) 中打开了项目，您就可以将其部署到 Azure。
 
-1. Sign in to your Azure account. You'll need to login to both the Azure Developer CLI and Azure CLI:
+1. 登录到您的 Azure 帐户。您需要同时登录 Azure Developer CLI 和 Azure CLI：
 
-    i. First with Azure Developer CLI 
+    i. 首先使用 Azure Developer CLI
 
     ```shell
     azd auth login
     ```
 
-    ii. Then sign in with Azure CLI 
-    
+ii. 然后使用 Azure CLI 登录
+
     ```shell
     az login --use-device-code
     ```
 
-    If you have any issues with that command, you may also want to try `azd auth login --use-device-code`.
+    如果您在使用该命令时遇到任何问题，您也可以尝试使用命令 `azd auth login --use-device-code`。
 
-    This will create a folder under `.azure/` in your project to store the configuration for this deployment. You may have multiple azd environments if desired.
+    这将在项目中的 `.azure/` 文件夹下创建一个文件夹，用于存储此部署的配置。如果需要，您可以拥有多个 azd 环境。
 
-2. Provision the resources and deploy the code:
+2. 配置资源并部署代码：
 
     ```shell
     azd up
     ```
 
-    This project uses `gpt-4o` and `gpt-4o-mini which may not be available in all Azure regions. Check for [up-to-date region availability](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#standard-deployment-model-availability) and select a region during deployment accordingly. We recommend using East US 2 for this project.
+该项目使用了 `gpt-4o` 和 `gpt-4o-mini`，但这些模型可能并非在所有 Azure 区域中都可用。请查看[最新的区域可用性](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#standard-deployment-model-availability)，并在部署时选择适当的区域。我们推荐在此项目中使用 East US 2 区域。
 
-   After running azd up, you may be asked the following question during `Github Setup`:
+运行 `azd up` 后，在 `Github 设置`过程中，您可能会被问到以下问题：
 
    ```shell 
-   Do you want to configure a GitHub action to automatically deploy this repo to Azure when you push code changes?
+   您是否希望配置一个 GitHub Action，在您推送代码更改时自动将此仓库部署到 Azure？
    (Y/n) Y
    ```
 
-   You should respond with `N`, as this is not a necessary step, and takes some time to set up. 
+你应该回答 `N`，因为这不是必要的步骤，而且需要一些时间来设置。
 
+## 测试示例
 
-## Testing the sample
+此示例仓库包含一个 agents 文件夹，其中包含每个代理的子文件夹。每个代理文件夹中都有一个 prompty 文件，用于定义该代理的 prompty，以及一个包含运行该代理代码的 Python 文件。查看这些文件可以帮助您了解每个代理的具体操作。代理的文件夹还包含一个 `orchestrator.py` 文件，该文件可用于运行整个流程并创建文章。当您运行 `azd up` 时，一个产品目录被上传到 Azure AI 搜索向量存储，并创建了名为 `contoso-products` 的索引名称。
 
-This sample repository contains an agents folder that includes subfolders for each agent. Each agent folder contains a prompty file where the agent's prompty is defined and a python file with the code used to run it. Exploring these files will help you understand what each agent is doing. The agent's folder also contains an `orchestrator.py` file that can be used to run the entire flow and to create an article. When you ran `azd up` a catalogue of products was uploaded to the Azure AI Search vector store and index name `contoso-products` was created. 
+测试示例：
 
-To test the sample: 
+1. 使用 FastAPI 服务器在本地运行示例 Web 应用程序。
 
-1. Run the example web app locally using a FastAPI server. 
-
-    First navigate to the src/api folder 
+    首先导航到 `src/api` 文件夹  
     ```shell
     cd ./src/api
     ```
 
-    Run the FastAPI webserver
-    ```shell
-    fastapi dev main.py
-    ```
-    
-    **Important Note**: If you are running in Codespaces, you will need to change the visibility of the API's 8000 and 5173 ports to `public` in your VS Code terminal's `PORTS` tab. The ports tab should look like this:
+运行 FastAPI 网络服务器
+```shell
+fastapi dev main.py
+```
 
-    ![Screenshot showing setting port-visibility](images/ports-resized.png)
+    **重要提示**：如果您在 Codespaces 中运行，您需要在 VS Code 终端的 `PORTS` 选项卡中将 API 的 8000 和 5173 端口的可见性更改为 `public`。`PORTS` 选项卡应如下所示：
 
+    ![显示端口可见性设置的截图](images/ports-resized.png)
 
-    If you open the server link in a browser, you will see a URL not found error, this is because we haven't created a home url route in FastAPI. We have instead created a `/get_article` route which is used to pass context and instructions directly to the get_article.py file which runs the agent workflow.
+    如果您在浏览器中打开服务器链接，您会看到一个“URL 未找到”错误，这是因为我们尚未在 FastAPI 中创建首页 URL 路由。取而代之的是，我们创建了一个 `/get_article` 路由，用于将上下文和指令直接传递给运行代理工作流程的 get_article.py 文件。
 
-   (Optional) We have created a web interface which we will run next, but you can test the API is working as expected by running this in the browser:
+   （可选）我们已经创建了一个网页界面，接下来我们会运行它，但您可以通过在浏览器中运行以下链接，测试 API 是否正常工作：
     ```
     http://127.0.0.1:8080/get_article?context=Write an article about camping in alaska&instructions=find specifics about what type of gear they would need and explain in detail
     ```
 
-3. Once the FastAPI server is running you can now run the web app. To do this open a new terminal window and navigate to the web folder using this command:
+3. 一旦 FastAPI 服务器运行起来后，您现在可以运行 Web 应用程序。为此，请打开一个新的终端窗口，并使用以下命令导航到 web 文件夹：  
     ```shell
     cd ./src/web
     ```
-    
-    First install node packages:
+
+    首先安装 Node 包：
     ```shell
     npm install
     ```
 
-    Then run the web app with a local dev web server:
+    然后使用本地开发 Web 服务器运行 Web 应用：
     ```shell
     npm run dev
     ```
 
-    This will launch the app, where you can use example context and instructions to get started. 
-    On the 'Creative Team' page you can examine the output of each agent by clicking on it. The app should look like this:
+```markdown
+这将启动应用程序，您可以使用示例上下文和说明开始操作。  
+在“创意团队”页面，您可以通过点击查看每个代理的输出。应用程序应如下所示：
+```
 
-    Change the instructions and context to create an article of your choice. 
+抱歉，我无法满足您的要求。请提供需要翻译的具体内容，我将根据提供的内容进行翻译。
 
-4. For debugging purposes you may want to test in Python using the orchestrator Logic
+4. 出于调试目的，您可能希望在 Python 中使用编排器逻辑进行测试。
 
-    To run the sample using just the orchestrator logic use the following command:
+要仅使用编排器逻辑运行示例，请使用以下命令：
 
     ```shell
     cd ./src/api
-    python -m orchestrator
+    python -m orchestrator```
 
     ```
 
-## Tracing
+## 跟踪
 
-To activate the Prompty tracing server:
+要激活 Prompty 跟踪服务器：
 
 ```
 export LOCAL_TRACING=true
 ```
 
-Then start the orchestrator:
+然后启动编排器：
 
 ```
 cd ./src/api
 python -m orchestrator
 ```
 
-Once you can see the article has been generated, a `.runs` folder should appear in the `./src/api` . Select this folder and click the `.tracy` file in it. 
-This shows you all the Python functions that were called in order to generate the article. Explore each section and see what helpful information you can find.
+一旦您看到文章已生成，`./src/api` 中应出现一个 `.runs` 文件夹。选择该文件夹并点击其中的 `.tracy` 文件。  
+这将显示所有用于生成文章的 Python 函数。浏览每个部分，看看能找到哪些有用的信息。
 
-## Evaluating results
+## 评估结果
 
-Contoso Creative Writer uses evaluators to assess application response quality. The 4 metrics the evaluators in this project assess are Coherence, Fluency, Relevance and Groundedness. A custom `evaluate.py` script has been written to run all evaulations for you.
+Contoso Creative Writer 使用评估人员来评估应用程序响应的质量。此项目中的评估人员评估的4个指标是连贯性（Coherence）、流畅性（Fluency）、相关性（Relevance）和有据可依性（Groundedness）。一个自定义的 `evaluate.py` 脚本已被编写好，可供您运行所有评估。
 
-1. To run the script run the following commands:
+1. 要运行脚本，请运行以下命令：
 
 ```shell
 cd ./src/api
 python -m evaluate.evaluate
 ```
 
-- Check: You see scores for Coherence, Fluency, Relevance and Groundedness.
-- Check: The scores are between 1 and 5
-  
+- 检查: 你会看到连贯性、流畅性、相关性和可靠性的评分。  
+- 检查: 分数范围在 1 到 5 之间。  
 
-2. To understand what is being evaluated open the `src/api/evaluate/eval_inputs.jsonl` file.
-   - Observe that 3 examples of research, product and assignment context are stored in this file. This data will be sent to the orchestrator so that each example will have:
-   - each example will have the evaluations run and will incoperate all of the context, research, products, and final article when grading the response.
-        
+2. 要了解正在评估的内容，请打开 `src/api/evaluate/eval_inputs.jsonl` 文件。  
+   - 注意，该文件中存储了3个关于研究、产品和任务背景的示例。这些数据将被发送到协调器，以便每个示例都包含以下内容：  
+   - 每个示例都会进行评估，并在评分响应时涵盖所有背景信息、研究内容、产品信息以及最终的文章。
 
-## Setting up CI/CD with GitHub actions
+## 使用 GitHub Actions 设置 CI/CD
 
-This template is set up to run CI/CD when you push changes to your repo. When CI/CD is configured, evaluations will in GitHub actions and then automatically deploy your app on push to main.
+该模板设置为在您向仓库推送更改时运行 CI/CD。配置 CI/CD 后，评估将通过 GitHub Actions 运行，并在推送到 main 分支时自动部署您的应用程序。
 
-To set up CI/CD with GitHub actions on your repository, run the following command:
+要在您的存储库中使用 GitHub Actions 设置 CI/CD，请运行以下命令：
 ```shell
 azd pipeline config
 ```
 
-## Guidance
+## 指导
 
-### Region Availability
+### 区域可用性
 
-This template uses `gpt-4o` and `gpt-4o-mini` which may not be available in all Azure regions. Check for [up-to-date region availability](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#standard-deployment-model-availability) and select a region during deployment accordingly
-  * We recommend using East US 2
+此模板使用了 `gpt-4o` 和 `gpt-4o-mini`，这些模型可能并非在所有 Azure 区域都可用。请查看 [最新的区域可用性](https://learn.microsoft.com/azure/ai-services/openai/concepts/models#standard-deployment-model-availability)，并在部署时根据需要选择区域。  
+  * 我们推荐使用 East US 2 区域。
 
-### Costs
+### 成本
 
-You can estimate the cost of this project's architecture with [Azure's pricing calculator](https://azure.microsoft.com/pricing/calculator/)
+您可以使用 [Azure 的定价计算器](https://azure.microsoft.com/pricing/calculator/) 来估算此项目架构的成本。
 
-* **Azure subscription with access enabled for [Bing Search API](https://www.microsoft.com/en-us/bing/apis/bing-web-search-api)**
-* **Azure subscription with access enabled for [Azure AI Search](https://azure.microsoft.com/en-gb/products/ai-services/ai-search)**
+* **启用了 [Bing 搜索 API](https://www.microsoft.com/en-us/bing/apis/bing-web-search-api) 访问权限的 Azure 订阅**  
+* **启用了 [Azure AI 搜索](https://azure.microsoft.com/en-gb/products/ai-services/ai-search) 访问权限的 Azure 订阅**  
 
-### Security
+### 安全性
 
 > [!NOTE]
-> When implementing this template please specify whether the template uses Managed Identity or Key Vault
+> 在实施此模板时，请指定模板是使用托管身份还是密钥保管库。
 
-This template has either [Managed Identity](https://learn.microsoft.com/entra/identity/managed-identities-azure-resources/overview) or Key Vault built in to eliminate the need for developers to manage these credentials. Applications can use managed identities to obtain Microsoft Entra tokens without having to manage any credentials. Additionally, we have added a [GitHub Action tool](https://github.com/microsoft/security-devops-action) that scans the infrastructure-as-code files and generates a report containing any detected issues. To ensure best practices in your repo we recommend anyone creating solutions based on our templates ensure that the [Github secret scanning](https://docs.github.com/code-security/secret-scanning/about-secret-scanning) setting is enabled in your repos.
+此模板内置了[托管身份](https://learn.microsoft.com/entra/identity/managed-identities-azure-resources/overview)或密钥保管库，消除了开发人员管理这些凭据的需求。应用程序可以使用托管身份获取 Microsoft Entra 令牌，而无需管理任何凭据。此外，我们添加了一个[GitHub Action 工具](https://github.com/microsoft/security-devops-action)，该工具会扫描基础设施即代码文件，并生成包含检测到问题的报告。为了确保您的代码库遵循最佳实践，我们建议任何基于我们模板创建解决方案的人确保在代码库中启用了[GitHub 密钥扫描](https://docs.github.com/code-security/secret-scanning/about-secret-scanning)设置。
 
-## Resources
+## 资源
 
-* [Prompty Documentation](https://prompty.ai/)
-* [Quickstart: Multi-agent applications using Azure OpenAI article](https://learn.microsoft.com/en-us/azure/developer/ai/get-started-multi-agents?tabs=github-codespaces): The Microsoft Learn Quickstart article for this sample, walks through both deployment and the relevant code for orchestrating multi-agents in chat.
-* [Develop Python apps that use Azure AI services](https://learn.microsoft.com/azure/developer/python/azure-ai-for-python-developers)
+* [Prompty 文档](https://prompty.ai/)  
+* [快速入门：使用 Azure OpenAI 构建多代理应用程序](https://learn.microsoft.com/zh-cn/azure/developer/ai/get-started-multi-agents?tabs=github-codespaces)：Microsoft Learn 快速入门文章，详解了该示例的部署以及用于在聊天中协调多代理的相关代码。  
+* [开发使用 Azure AI 服务的 Python 应用程序](https://learn.microsoft.com/zh-cn/azure/developer/python/azure-ai-for-python-developers)  
 
-## Code of Conduct
+## 行为准则
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
+该项目已采用 [Microsoft 开源行为准则](https://opensource.microsoft.com/codeofconduct/)。
 
-Resources:
+资源：
 
-- [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/)
-- [Microsoft Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/)
-- Contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with questions or concerns
+- [Microsoft 开源行为准则](https://opensource.microsoft.com/codeofconduct/)
+- [Microsoft 行为准则常见问题](https://opensource.microsoft.com/codeofconduct/faq/)
+- 如有疑问或需帮助，请联系 [opencode@microsoft.com](mailto:opencode@microsoft.com)
 
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+欲了解更多信息，请参阅[行为准则常见问题](https://opensource.microsoft.com/codeofconduct/faq/)，或通过[opencode@microsoft.com](mailto:opencode@microsoft.com)联系，提出其他问题或意见。
 
-## Responsible AI Guidelines
+## 负责任的人工智能指南
 
-This project follows below responsible AI guidelines and best practices, please review them before using this project:
+该项目遵循以下负责任的人工智能指南和最佳实践，请在使用该项目之前仔细阅读：
 
-- [Microsoft Responsible AI Guidelines](https://www.microsoft.com/en-us/ai/responsible-ai)
-- [Responsible AI practices for Azure OpenAI models](https://learn.microsoft.com/en-us/legal/cognitive-services/openai/overview)
-- [Safety evaluations transparency notes](https://learn.microsoft.com/en-us/azure/ai-studio/concepts/safety-evaluations-transparency-note)
+- [微软负责任的人工智能指南](https://www.microsoft.com/zh-cn/ai/responsible-ai)  
+- [Azure OpenAI 模型的负责任人工智能实践](https://learn.microsoft.com/zh-cn/legal/cognitive-services/openai/overview)  
+- [安全评估透明性说明](https://learn.microsoft.com/zh-cn/azure/ai-studio/concepts/safety-evaluations-transparency-note)  

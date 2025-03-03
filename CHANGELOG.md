@@ -1,13 +1,13 @@
-## [project-title] Changelog
+## [project-title] 更新日志
 
 <a name="x.y.z"></a>
 # x.y.z (yyyy-mm-dd)
 
-*Features*
-* ...
+*功能*  
+* ...  
 
-*Bug Fixes*
-* ...
+*错误修复*  
+* ...  
 
-*Breaking Changes*
-* ...
+*重大更改*  
+* ...  

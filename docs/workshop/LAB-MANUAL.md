@@ -1,45 +1,43 @@
-### Welcome to the AI Tour and workshop WRK551!
+### 欢迎参加AI之旅和工作坊WRK551！
 
-In this session, you will learn how to build the app, **Contoso Creative Writer**. This app will assist the marketing team at Contoso Outdoors in creating trendy, well-researched articles to promote the company’s products.
+在本节中，您将学习如何构建应用程序 **Contoso Creative Writer**。此应用程序将协助 Contoso Outdoors 的市场营销团队创建时尚且经过充分研究的文章，以推广公司的产品。
 
-### Pre-Requisites
+### 前置条件
 
-To participate in this workshop, you will need:
+要参加本次研讨会，您需要：
 
-1. Your own laptop.
-    * It need only be capable of running a browser and GitHub Codespaces, so almost any laptop will do.
-    * A recent version of Edge, Chrome or Safari is recommended.
-2. A GitHub Account.
-    * If you don't have one, you can [signup for a free account](https://github.com/signup) now.
-    * After this workshop is complete, you will have a fork of the "contoso-creative-writer" repository in your GitHub account, which includes all the materials you will need to reproduce this workshop at home.
+1. 您自己的笔记本电脑  
+    * 只需能够运行浏览器和 GitHub Codespaces，因此几乎任何笔记本电脑都可以使用。  
+    * 推荐使用最新版的 Edge、Chrome 或 Safari。  
 
+2. 一个 GitHub 账户  
+    * 如果您还没有，可以 [注册一个免费账户](https://github.com/signup) 。  
+    * 在本次研讨会结束后，您的 GitHub 账户中将拥有 "contoso-creative-writer" 仓库的一个分叉，其中包含您在家中重现本次研讨会所需的所有材料。  
 
-### To begin this lab follow these steps:
+### 开始此实验，请按照以下步骤操作：
 
-1. Confirm that you can see your **Azure Credentials** at the top of the page. 
-    * You will use these to login to Azure Developer CLI (AZD) and Azure CLI (AZ) later. 
+1. 确认您可以在页面顶部看到您的 **Azure 凭据**。  
+    * 您将稍后使用这些凭据登录 Azure Developer CLI (AZD) 和 Azure CLI (AZ)。 
 
-2.  Click on this link [https://aka.ms/contoso-creative-writer-codespace](https://aka.ms/contoso-creative-writer-codespace). This will take you to a page where you can open a Codespace for Contoso Creative Writer. 
-    * If you are not logged into Github already you will need to login using **your own** GitHub account credentials. 
+2. 单击此链接 [https://aka.ms/contoso-creative-writer-codespace](https://aka.ms/contoso-creative-writer-codespace)。这将带您到一个页面，在那里您可以为 Contoso Creative Writer 打开一个 Codespace。  
+   * 如果您尚未登录 GitHub，您需要使用**您自己的** GitHub 帐户凭据登录。
 
-3. Click the green **<> Create codespace** button at the bottom of the page.
-    * This will open a pre-built Codespace on main. 
+3. 点击页面底部的绿色 **<> Create codespace** 按钮。  
+    * 这将打开一个基于主分支的预构建代码空间。  
 
-    > **🚧 IMPORTANT**: Do not open the GitHub Codespace on a fork of the repository, this would prevent you from using the prebuilt Codespace container image. Don't worry, you'll have the possibility to fork the repository later.
+    > **🚧 重要**：不要在仓库的分叉版本上打开 GitHub Codespace，这会导致无法使用预构建的 Codespace 容器镜像。别担心，稍后你会有机会分叉该仓库。
 
-4. Once your Codespace is ready, **run the following command**:
+4. 当您的 Codespace 准备就绪后，**运行以下命令**：
 
 ++./docs/workshop/lab_setup.py --username '@lab.CloudPortalCredential(User1).Username' --password '@lab.CloudPortalCredential(User1).Password' --azure-env-name 'AITOUR@lab.LabInstance.Id' --subscription '@lab.CloudSubscription.Id'++
 
+> [!IMPORTANT]  
+> - **如果您是在 Skillable 实验页面查看此内容**：上述是您专属的 Azure 凭据。  
+> - **如果您是在 Github 查看此内容**：上述并非您的凭据，它们是占位符。您的实际凭据可以在 Skillable 实验页面中查看。  
 
-> [!IMPORTANT]
-> - **If you are viewing this from the Skillable lab page**: The above are your unique azure credentials.
-> - **If you are viewing this from Github**: The above are not your credentials. They are placeholders. Your actual credentials can be seen on the Skillable lab page.
-
-
-5. Once the previous script is complete:
-    * In the file explorer look for the **docs** folder and in it open the **workshop** folder. 
-    * Open the **workshop-1-intro.ipynb** file. 
-    * Follow the instructions to get going!
+5. 一旦前面的脚本完成：  
+    * 在文件资源管理器中找到 **docs** 文件夹，并打开其中的 **workshop** 文件夹。  
+    * 打开 **workshop-1-intro.ipynb** 文件。  
+    * 按照指示开始操作吧！  
 
 Have fun building!🎉

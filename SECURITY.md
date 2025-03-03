@@ -1,41 +1,41 @@
-<!-- BEGIN MICROSOFT SECURITY.MD V0.0.5 BLOCK -->
+<!-- 开始 MICROSOFT SECURITY.MD V0.0.5 块 -->
 
-## Security
+## 安全性
 
-Microsoft takes the security of our software products and services seriously, which includes all source code repositories managed through our GitHub organizations, which include [Microsoft](https://github.com/Microsoft), [Azure](https://github.com/Azure), [DotNet](https://github.com/dotnet), [AspNet](https://github.com/aspnet), [Xamarin](https://github.com/xamarin), and [our GitHub organizations](https://opensource.microsoft.com/).
+微软非常重视我们软件产品和服务的安全性，这包括通过我们的 GitHub 组织管理的所有源代码存储库，这些组织包括 [Microsoft](https://github.com/Microsoft)、[Azure](https://github.com/Azure)、[DotNet](https://github.com/dotnet)、[AspNet](https://github.com/aspnet)、[Xamarin](https://github.com/xamarin)，以及[我们的 GitHub 组织](https://opensource.microsoft.com/)。
 
-If you believe you have found a security vulnerability in any Microsoft-owned repository that meets [Microsoft's definition of a security vulnerability](<https://docs.microsoft.com/previous-versions/tn-archive/cc751383(v=technet.10)>), please report it to us as described below.
+如果您认为在任何微软拥有的代码库中发现了符合[微软对安全漏洞的定义](<https://docs.microsoft.com/previous-versions/tn-archive/cc751383(v=technet.10)>)的安全漏洞，请按照以下描述向我们报告。
 
-## Reporting Security Issues
+## 报告安全问题
 
-**Please do not report security vulnerabilities through public GitHub issues.**
+**请不要通过公共 GitHub 问题报告安全漏洞。**
 
-Instead, please report them to the Microsoft Security Response Center (MSRC) at [https://msrc.microsoft.com/create-report](https://msrc.microsoft.com/create-report).
+相反，请通过以下链接将它们报告给 Microsoft 安全响应中心 (MSRC)：[https://msrc.microsoft.com/create-report](https://msrc.microsoft.com/create-report)。
 
-If you prefer to submit without logging in, send email to [secure@microsoft.com](mailto:secure@microsoft.com). If possible, encrypt your message with our PGP key; please download it from the [Microsoft Security Response Center PGP Key page](https://www.microsoft.com/msrc/pgp-key-msrc).
+如果您更倾向于在不登录的情况下提交，请发送电子邮件至 [secure@microsoft.com](mailto:secure@microsoft.com)。如果可能，请使用我们的 PGP 密钥加密您的消息；您可以从 [Microsoft 安全响应中心 PGP 密钥页面](https://www.microsoft.com/msrc/pgp-key-msrc) 下载它。
 
-You should receive a response within 24 hours. If for some reason you do not, please follow up via email to ensure we received your original message. Additional information can be found at [microsoft.com/msrc](https://www.microsoft.com/msrc).
+您应该在24小时内收到回复。如果由于某种原因没有收到，请通过电子邮件跟进，以确保我们收到了您的原始消息。更多信息可访问 [microsoft.com/msrc](https://www.microsoft.com/msrc)。
 
-Please include the requested information listed below (as much as you can provide) to help us better understand the nature and scope of the possible issue:
+请提供以下列出的所需信息（尽可能详细），以帮助我们更好地了解问题的性质和范围：
 
-- Type of issue (e.g. buffer overflow, SQL injection, cross-site scripting, etc.)
-- Full paths of source file(s) related to the manifestation of the issue
-- The location of the affected source code (tag/branch/commit or direct URL)
-- Any special configuration required to reproduce the issue
-- Step-by-step instructions to reproduce the issue
-- Proof-of-concept or exploit code (if possible)
-- Impact of the issue, including how an attacker might exploit the issue
+- 问题类型（例如：缓冲区溢出、SQL注入、跨站脚本攻击等）  
+- 与问题表现相关的源文件完整路径  
+- 受影响源代码的位置（标签/分支/提交或直接URL）  
+- 复现该问题所需的任何特殊配置  
+- 复现问题的逐步操作说明  
+- 概念验证代码或利用代码（如果可能）  
+- 问题的影响，包括攻击者可能如何利用该问题  
 
-This information will help us triage your report more quickly.
+这些信息将帮助我们更快地处理您的报告。
 
-If you are reporting for a bug bounty, more complete reports can contribute to a higher bounty award. Please visit our [Microsoft Bug Bounty Program](https://microsoft.com/msrc/bounty) page for more details about our active programs.
+如果您正在提交漏洞赏金报告，更完整的报告可能会获得更高的赏金奖励。请访问我们的 [Microsoft漏洞赏金计划](https://microsoft.com/msrc/bounty) 页面，了解有关我们活跃计划的更多详情。
 
-## Preferred Languages
+## 偏好语言
 
-We prefer all communications to be in English.
+我们更倾向于所有交流使用英语。
 
-## Policy
+## 政策
 
-Microsoft follows the principle of [Coordinated Vulnerability Disclosure](https://www.microsoft.com/msrc/cvd).
+微软遵循[协调漏洞披露](https://www.microsoft.com/msrc/cvd)原则。
 
-<!-- END MICROSOFT SECURITY.MD BLOCK -->
+<!-- 结束 MICROSOFT SECURITY.MD 模块 -->
